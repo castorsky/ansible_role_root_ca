@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  become: yes
+  gather_facts: yes
+  vars_files:
+    - did_not_included_in_git.yml
+  vars:
+    custom_ca:
+      - name: Test-Root-CA
+        content: "{{ included_ca_root_cert }}"
+  roles:
+    - role: infra_monkey.root_ca

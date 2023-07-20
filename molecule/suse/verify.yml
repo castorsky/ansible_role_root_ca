@@ -1,0 +1,24 @@
+---
+- name: Verify
+  hosts: all
+  become: yes
+  gather_facts: yes
+  vars_files:
+    - did_not_included_in_git.yml
+
+  tasks:
+    - name: Install curl into container
+      ansible.builtin.package:
+        name: curl
+        state: present
+
+    - name: Execute request to HTTPS site and grep SSL verification
+      ansible.builtin.shell:
+        cmd: "curl -vI https://{{ included_https_host }} 2>&1 | grep -q 'SSL certificate verify ok'"
+      changed_when: false
+      failed_when: false
+      register: grep_result
+
+    - name: Check if certificate is trusted
+      ansible.builtin.assert:
+        that: grep_result.rc == 0

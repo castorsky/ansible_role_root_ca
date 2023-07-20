@@ -1,0 +1,19 @@
+--- .ansible/roles/robertdebock.bootstrap/vars/main.yml 2023-02-28 13:55:27.000000000 +0300
++++ .cache/ansible-compat/358f14/roles/robertdebock.bootstrap/vars/main.yml     2023-07-21 00:08:55.929411861 +0300
+@@ -60,5 +60,5 @@
+            EulerOS, openEuler, AlmaLinux]
+   Suse: [SLED, openSUSE Tumbleweed, openSUSE Leap,
+-         SLES_SAP, SUSE_LINUX, SLES, openSUSE, SuSE]
++         SLES_SAP, SUSE_LINUX, SLES, openSUSE, SuSE, SUSE]
+
+ bootstrap_search:
+
+ --- .ansible/roles/robertdebock.bootstrap/tasks/main.yml        2023-02-28 13:55:27.000000000 +0300
+ +++ .cache/ansible-compat/358f14/roles/robertdebock.bootstrap/tasks/main.yml    2023-07-20 22:34:03.536940123 +0300
+ @@ -38,4 +38,6 @@
+        ansible.builtin.raw: "{{ bootstrap_install.raw }}"
+        register: bootstrap_install_packages
+ +      args:
+ +        executable: /bin/sh
+        changed_when:
+          - (bootstrap_install.stdout_regex in bootstrap_install_packages.stdout and

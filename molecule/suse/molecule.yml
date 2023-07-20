@@ -1,0 +1,65 @@
+---
+#
+# Ansible managed
+#
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+    requirements-file: requirements.yml
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+driver:
+  name: podman
+platforms:
+  - name: opensuse-15.5
+    image: opensuse/leap:15.5
+    pre_build_image: true
+    command: "/usr/bin/sleep 3600"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - ALL
+
+  - name: opensuse-15.4
+    image: opensuse/leap:15.4
+    pre_build_image: true
+    command: "/usr/bin/sleep 3600"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - ALL
+
+  - name: opensuse-15.3
+    image: opensuse/leap:15.3
+    pre_build_image: true
+    command: "/usr/bin/sleep 3600"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - ALL
+
+  - name: sles-15.5
+    image: registry.suse.com/bci/bci-base:15.5
+    pre_build_image: true
+    command: "/usr/bin/sleep 3600"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - ALL
+
+  - name: sles-15.4
+    image: registry.suse.com/bci/bci-base:15.4
+    pre_build_image: true
+    command: "/usr/bin/sleep 3600"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - ALL
+
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
